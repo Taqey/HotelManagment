@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>3f5a9de3-6f15-4fe5-8de5-461541916858</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,11 +21,9 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\HotelManagment.Application\HotelManagment.Application.csproj">
-			<PrivateAssets>all</PrivateAssets>
+		<ProjectReference Include="..\HotelManagment.Application\HotelManagment.Application.csproj" PrivateAssets="all">
 		</ProjectReference>
-		<ProjectReference Include="..\HotelManagment.Infrastructure\HotelManagment.Infrastructure.csproj">
-			<PrivateAssets>all</PrivateAssets>
+		<ProjectReference Include="..\HotelManagment.Infrastructure\HotelManagment.Infrastructure.csproj" PrivateAssets="all">
 		</ProjectReference>
 	</ItemGroup>
 

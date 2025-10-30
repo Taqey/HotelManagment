@@ -1,11 +1,14 @@
 
+using HotelManagment.Application.Implementation.Helper;
+using HotelManagment.Domain.Models;
 using HotelManagment.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using System.Security.Cryptography.Xml;
 using Microsoft.IdentityModel.Tokens;
-using HotelManagment.Application.Implementation.Helper;
+using Microsoft.OpenApi.Models;
+using System;
+using System.Security.Cryptography.Xml;
 using System.Text;
 namespace HotelManagment.API
 {
@@ -65,6 +68,11 @@ namespace HotelManagment.API
 			
 			}
 			);
+			builder.Services.AddIdentityCore<ApplicationUser>()
+	.AddRoles<IdentityRole>()
+	.AddEntityFrameworkStores<HMS4Context>()
+	.AddDefaultTokenProviders();
+
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
