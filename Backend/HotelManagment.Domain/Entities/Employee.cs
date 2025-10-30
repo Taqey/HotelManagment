@@ -29,7 +29,7 @@ public partial class Employee
 
     public virtual ICollection<RoomServiceRequest> RoomServiceRequests { get; set; } = new List<RoomServiceRequest>();
 
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+    public virtual ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
 
     public virtual ICollection<WarehouseItem> WarehouseItems { get; set; } = new List<WarehouseItem>();
 

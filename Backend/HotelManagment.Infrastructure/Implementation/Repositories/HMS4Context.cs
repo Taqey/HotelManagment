@@ -2,11 +2,12 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelManagment.Domain.Models;
 
-public partial class HMS4Context : DbContext
+public partial class HMS4Context : IdentityDbContext<ApplicationUser>
 {
     public HMS4Context(DbContextOptions<HMS4Context> options)
         : base(options)
@@ -49,7 +50,7 @@ public partial class HMS4Context : DbContext
 
     public virtual DbSet<RoomType> RoomTypes { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<ApplicationUser> Users { get; set; }
 
     public virtual DbSet<Warehouse> Warehouses { get; set; }
 
@@ -57,6 +58,7 @@ public partial class HMS4Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+		base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Booking>(entity =>
         {
             entity.HasKey(e => e.BookingId).HasName("PK__Bookings__5DE3A5B1D4847D21");
@@ -580,21 +582,15 @@ public partial class HMS4Context : DbContext
                 .HasColumnName("type_name");
         });
 
-        modelBuilder.Entity<User>(entity =>
+        modelBuilder.Entity<ApplicationUser>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__B9BE370FF68D0280");
 
-            entity.HasIndex(e => e.Username, "UQ__Users__F3DBC572559E114E").IsUnique();
 
-            entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.CreatedDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_date");
-            entity.Property(e => e.Email)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("email");
+
             entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
             entity.Property(e => e.IsActive)
                 .HasDefaultValue(true)
@@ -602,22 +598,9 @@ public partial class HMS4Context : DbContext
             entity.Property(e => e.LastLogin)
                 .HasColumnType("datetime")
                 .HasColumnName("last_login");
-            entity.Property(e => e.PasswordHash)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("password_hash");
-            entity.Property(e => e.Role)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasDefaultValue("Employee")
-                .HasColumnName("role");
-            entity.Property(e => e.Username)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("username");
+
+
+
 
             entity.HasOne(d => d.Employee).WithMany(p => p.Users)
                 .HasForeignKey(d => d.EmployeeId)
